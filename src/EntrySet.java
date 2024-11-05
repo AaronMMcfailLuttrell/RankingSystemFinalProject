@@ -13,6 +13,7 @@ public class EntrySet extends JPanel {
     JLabel TextInstance;
     JButton voteButton;
     JButton runButton;
+    JButton detailsButton;
 
     public EntrySet() {
         setPreferredSize(new Dimension(Constants.ENTRY_SET_PANEL_WIDTH, Constants.ENTRY_SET_PANEL_HEIGHT));
@@ -24,6 +25,8 @@ public class EntrySet extends JPanel {
         add(voteButton);
         setRunButton();
         add(runButton);
+        setDetailsButton();
+        add(detailsButton);
 
         setVisible(true);
     }
@@ -39,6 +42,8 @@ public class EntrySet extends JPanel {
         add(voteButton);
         setRunButton();
         add(runButton);
+        setDetailsButton();
+        add(detailsButton);
 
         setVisible(true);
     }
@@ -49,6 +54,7 @@ public class EntrySet extends JPanel {
         voteButton.setSize(VOTE_SIZE_X,VOTE_SIZE_Y);
         voteButton.setBackground(new Color(144,233,144));
         voteButton.setLocation(CONSTRUCTOR_TEXT_LOC_X, Constants.ENTRY_SET_PANEL_HEIGHT - VOTE_SIZE_Y - 10);
+        voteButton.addActionListener(e -> {lambdaFunctionVote(TextInstance.getText());});
         voteButton.setVisible(true);
     }
 
@@ -64,14 +70,38 @@ public class EntrySet extends JPanel {
         runButton.setSize(VOTE_SIZE_X, VOTE_SIZE_Y);
         runButton.setBackground(new Color(199, 114, 199, 255));
         runButton.setLocation(Constants.ENTRY_SET_PANEL_WIDTH - VOTE_SIZE_X, Constants.ENTRY_SET_PANEL_HEIGHT - VOTE_SIZE_Y - 10);
+        runButton.addActionListener(e -> {lambdaFunctionRun(TextInstance.getText());});
         runButton.setVisible(true);
+    }
+
+    private void setDetailsButton() {
+        detailsButton = new JButton("Details");
+        detailsButton.setSize(VOTE_SIZE_X + 30, VOTE_SIZE_Y);
+        detailsButton.setBackground(new Color(120, 120, 120, 255));
+        detailsButton.setLocation(Constants.FRAME_WIDTH/2 - (VOTE_SIZE_X + 70), Constants.ENTRY_SET_PANEL_HEIGHT - VOTE_SIZE_Y - 10);
+        detailsButton.addActionListener(e -> {lambdaFunctionDetails(TextInstance.getText());});
+        detailsButton.setVisible(true);
     }
 
     /*
     Socket to Admin to update vote count on admin end
      */
-    private void lambdaFunctionVote() {
+    private void lambdaFunctionVote(String githubLink) {
+        System.out.println(githubLink);
+    }
 
+    /*
+    Run button lambda expression
+     */
+    private void lambdaFunctionRun(String githubLink) {
+        System.out.println(githubLink);
+    }
+
+    /*
+    Details button lambda expression
+     */
+    private void lambdaFunctionDetails(String githubLink) {
+        System.out.println(githubLink);
     }
 
 }
