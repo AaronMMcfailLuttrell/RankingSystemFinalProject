@@ -10,16 +10,14 @@ public class Main {
         mainFrame.add(userEntriesPanel);
         DetailedEntryPanel detailedEntryPanel = new DetailedEntryPanel();
         mainFrame.add(detailedEntryPanel);
+        userEntriesPanel.setVisible(true);
+        userEntriesPanel.repaint();
+        userEntriesPanel.revalidate();
 
-
-        for (int i = 0; i < 60; i++) {
-            JPanel entry = new JPanel();
-            entry.setPreferredSize(new Dimension(250, 50));
-            entry.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-            entry.add(new JLabel("Entry " + (i + 1)));
-            entry.setVisible(true);
-            userEntriesPanel.addEntry(entry);
+        for (int i = 0; i < 20; i++) {
+            userEntriesPanel.addEntry(new EntrySet("Link.exe"));
         }
+
 
     }
 
