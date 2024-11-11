@@ -1,4 +1,7 @@
 import javax.net.ssl.HttpsURLConnection;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URI;
@@ -9,8 +12,9 @@ public class Repo {
 	private String link;
 	private String title;
 	private String user;
+	private String repoPath;
 
-	int responseCode = 0;
+	private int responseCode = 0;
 
 	//constructor
 	//I was thinking about adding multiple to support custom names or titles, but I don't people want to waste time doing that
@@ -65,18 +69,77 @@ public class Repo {
 		}
 	}
 
+	//download the repository
 	public void downloadRepo() {
-		//download the repository
 		try {
 			//create a process builder to run the git clone command and download the repository to the repos folder under the title of the repository
-			ProcessBuilder builder = new ProcessBuilder("git", "clone", link, "repos/" + title);
+			repoPath = "./repos/" + title;
+			ProcessBuilder builder = new ProcessBuilder("git", "clone", link, repoPath);
 			builder.redirectErrorStream(true);
 			//start the process
 			Process process = builder.start();
+
+			//check for errors
+			localErrors(process);
+
 			//program waits for our process to finish
 			process.waitFor();
 		} catch (Exception e) {
 			throw new RuntimeException("Unable to download the repository");
+		}
+	}
+
+	//compile the repository
+	public void compileRepo() {
+		try {
+			//create a process builder to run the javac command and compile the repository
+			ProcessBuilder builder = new ProcessBuilder("javac", "-d", repoPath + "/bin", repoPath + "/src/*.java");
+			builder.redirectErrorStream(true);
+			//start the process
+			Process process = builder.start();
+
+			//check for errors
+			localErrors(process);
+
+			//program waits for our process to finish
+			process.waitFor();
+		} catch (Exception e) {
+			throw new RuntimeException("Unable to compile the repository");
+		}
+	}
+
+	//THIS IS CURRENTLY SET TO ONLY RUN A MAIN CLASS
+	//We can look into using regex or something to find runnable classes or have the user define the main class if an error occurs
+
+	//run the repository
+	public void runRepo() {
+		try {
+			//create a process builder to run the java command and run the repository
+			ProcessBuilder builder = new ProcessBuilder("java", "-cp", repoPath + "/bin", "Main");
+			builder.redirectErrorStream(true);
+			//start the process
+			Process process = builder.start();
+
+			//check for errors
+			localErrors(process);
+
+			//program waits for our process to finish
+			process.waitFor();
+		} catch (Exception e) {
+			throw new RuntimeException("Unable to run the repository");
+		}
+	}
+
+	private void localErrors(Process p) throws IOException {
+		//check for errors
+		BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+		BufferedReader errorReader = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+		String line;
+		while ((line = reader.readLine()) != null) {
+			System.out.println(line);
+		}
+		while ((line = errorReader.readLine()) != null) {
+			System.err.println(line);
 		}
 	}
 

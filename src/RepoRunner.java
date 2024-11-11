@@ -8,5 +8,7 @@ public class RepoRunner {
 		System.out.println(repo.getResponseCode());
 
 		repo.downloadRepo();
+		repo.compileRepo();
+		repo.runRepo();
 	}
 }
