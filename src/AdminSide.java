@@ -1,10 +1,13 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class AdminSide {
     static JPanel entryPanel;
+    static JButton addEntryButton;
+    private static UserEntriesPanel userEntriesPanel;
     public static void main(String[] args) throws IOException {
         MainFrame mainFrame = new MainFrame();
         entryPanel = new JPanel();
@@ -12,10 +15,16 @@ public class AdminSide {
         entryPanel.setVisible(true);
         mainFrame.add(entryPanel);
 
-        UserEntriesPanel userEntriesPanel = new UserEntriesPanel();
+        userEntriesPanel = new UserEntriesPanel();
         entryPanel.add(userEntriesPanel);
 
         JPanel placeholderPanel = new JPanel();
+        JButton addEntryButton = new JButton("Add Entry");
+        addEntryButton.addActionListener(e -> {
+            AdminAddEntry adminAddEntry = new AdminAddEntry(userEntriesPanel);
+
+        });
+        placeholderPanel.add(addEntryButton);
         entryPanel.add(placeholderPanel);
 
         mainFrame.add(entryPanel);
