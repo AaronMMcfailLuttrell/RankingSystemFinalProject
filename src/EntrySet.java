@@ -5,7 +5,7 @@ import java.awt.*;
 public class EntrySet extends JPanel {
     private static final int CONSTRUCTOR_TEXT_LOC_X = 20;
     private static final int CONSTRUCTOR_TEXT_LOC_Y = 0;
-    private static final int CONSTRUCTOR_TEXT_SIZE_X = 100;
+    private static final int CONSTRUCTOR_TEXT_SIZE_X = 600;
     private static final int CONSTRUCTOR_TEXT_SIZE_Y = 25;
     private static final int VOTE_SIZE_X = 70;
     private static final int VOTE_SIZE_Y = 30;
@@ -94,7 +94,8 @@ public class EntrySet extends JPanel {
     Run button lambda expression
      */
     private void lambdaFunctionRun(String githubLink) {
-        System.out.println(githubLink);
+        Repo repo = new Repo(githubLink);
+        repo.structureProgram();
     }
 
     /*

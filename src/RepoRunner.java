@@ -7,8 +7,6 @@ public class RepoRunner {
 		System.out.println(repo.getUser());
 		System.out.println(repo.getResponseCode());
 
-		repo.downloadRepo();
-		repo.compileRepo();
-		repo.runRepo();
+		repo.structureProgram();
 	}
 }

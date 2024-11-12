@@ -159,5 +159,12 @@ public class Repo {
 	public int getResponseCode() {
 		return responseCode;
 	}
+
+	public void structureProgram() {
+		downloadRepo();
+		compileRepo();
+		runRepo();
+	}
+
 }
 
