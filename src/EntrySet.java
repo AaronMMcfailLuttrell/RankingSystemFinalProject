@@ -102,6 +102,10 @@ public class EntrySet extends JPanel {
     Details button lambda expression
      */
     private void lambdaFunctionDetails(String githubLink) {
+        //somehow I need to notify detailedEntryPanel that it needs to show some entries.
+        //may send an event to notify it?
+        //Repo repo = new Repo(githubLink);
+
         System.out.println(githubLink);
     }
 

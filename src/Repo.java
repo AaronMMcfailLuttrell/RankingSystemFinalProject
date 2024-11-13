@@ -16,6 +16,8 @@ public class Repo {
 
 	private int responseCode = 0;
 
+	private boolean downloaded;
+
 	//constructor
 	//I was thinking about adding multiple to support custom names or titles, but I don't people want to waste time doing that
 	public Repo(String linkIn) {
@@ -27,6 +29,8 @@ public class Repo {
 		//get the name and title based on the link
 		user = link.split("/")[3];
 		title = link.split("/")[4].split("\\.")[0];
+
+		this.downloaded = false;
 	}
 
 	//check to see if the link is a valid git repository
@@ -84,6 +88,9 @@ public class Repo {
 
 			//program waits for our process to finish
 			process.waitFor();
+
+			//set a flag that the repo has been downloaded
+			this.downloaded = true;
 		} catch (Exception e) {
 			throw new RuntimeException("Unable to download the repository");
 		}
@@ -160,8 +167,14 @@ public class Repo {
 		return responseCode;
 	}
 
+	public boolean isDownloaded() {
+		return this.downloaded;
+	}
+
 	public void structureProgram() {
-		downloadRepo();
+		if (!this.downloaded) {
+			downloadRepo();
+		}
 		compileRepo();
 		runRepo();
 	}
