@@ -51,7 +51,7 @@ public class AdminAddEntry extends JDialog {
     private void submitLambda() throws IOException {
         AdminEntrySet entrySet = new AdminEntrySet(nameField.getText(), userEntriesPanel);
         userEntriesPanel.addEntryAdmin(entrySet);
-        FileWriter fileWriter = new FileWriter("./src/test.txt", true);
+        FileWriter fileWriter = new FileWriter(Constants.FilePath, true);
         fileWriter.write(nameField.getText() + "\n");
         fileWriter.close();
         dispose();

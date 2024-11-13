@@ -38,9 +38,9 @@ public class AdminUserEntriesPanel extends JPanel {
     }
 
     private void initializeData() throws IOException {
-        File placeholder = new File("./src/test.txt");
+        File placeholder = new File(Constants.FilePath);
         placeholder.createNewFile();
-        Scanner sc = new Scanner(new File("./src/test.txt"));
+        Scanner sc = new Scanner(new File(Constants.FilePath));
         while (sc.hasNextLine()) {
             Links.add(sc.nextLine());
         }

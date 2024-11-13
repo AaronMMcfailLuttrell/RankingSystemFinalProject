@@ -25,15 +25,15 @@ public class AdminEntrySet extends EntrySet {
     }
 
     private void deleteButtonLambda(String githubLink, AdminUserEntriesPanel referencePanel) throws IOException {
-        File placeholder = new File("./src/test.txt");
+        File placeholder = new File(Constants.FilePath);
         placeholder.createNewFile();
-        Scanner sc = new Scanner(new File("./src/test.txt"));
+        Scanner sc = new Scanner(new File(Constants.FilePath));
         ArrayList<String> entries = new ArrayList<>();
         //Read all entries into a temporary list
         while (sc.hasNextLine()) {
             entries.add(sc.nextLine());
         }
-        FileWriter fileWriter = new FileWriter("./src/test.txt");
+        FileWriter fileWriter = new FileWriter(Constants.FilePath);
         //Remove the specific instance that has the github link
         entries.remove(githubLink);
 
