@@ -6,8 +6,8 @@ import java.io.IOException;
 
 public class AdminAddEntry extends JDialog {
     private JTextField nameField;
-    private UserEntriesPanel userEntriesPanel;
-    public AdminAddEntry(UserEntriesPanel userPanel) {
+    private AdminUserEntriesPanel userEntriesPanel;
+    public AdminAddEntry(AdminUserEntriesPanel userPanel) {
         userEntriesPanel = userPanel;
         this.setTitle("Add Event");
         this.setModal(true);
@@ -49,10 +49,10 @@ public class AdminAddEntry extends JDialog {
     }
 
     private void submitLambda() throws IOException {
-        EntrySet entrySet = new EntrySet(nameField.getText());
-        userEntriesPanel.addEntry(entrySet);
-        FileWriter fileWriter = new FileWriter("./src/test.txt");
-        fileWriter.write(nameField.getText());
+        AdminEntrySet entrySet = new AdminEntrySet(nameField.getText(), userEntriesPanel);
+        userEntriesPanel.addEntryAdmin(entrySet);
+        FileWriter fileWriter = new FileWriter("./src/test.txt", true);
+        fileWriter.write(nameField.getText() + "\n");
         fileWriter.close();
         dispose();
     }

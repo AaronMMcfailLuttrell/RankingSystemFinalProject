@@ -7,7 +7,7 @@ import java.io.IOException;
 public class AdminSide {
     static JPanel entryPanel;
     static JButton addEntryButton;
-    private static UserEntriesPanel userEntriesPanel;
+    private static AdminUserEntriesPanel userEntriesPanel;
     public static void main(String[] args) throws IOException {
         MainFrame mainFrame = new MainFrame();
         entryPanel = new JPanel();
@@ -15,7 +15,7 @@ public class AdminSide {
         entryPanel.setVisible(true);
         mainFrame.add(entryPanel);
 
-        userEntriesPanel = new UserEntriesPanel();
+        userEntriesPanel = new AdminUserEntriesPanel();
         entryPanel.add(userEntriesPanel);
 
         JPanel placeholderPanel = new JPanel();
