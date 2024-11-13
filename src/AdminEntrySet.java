@@ -39,6 +39,7 @@ public class AdminEntrySet extends EntrySet {
 
         //Overwrite the original file to correctly delete it
         fileWriter.write(String.join("\n", entries));
+        fileWriter.write("\n");
         fileWriter.close();
         sc.close();
 
