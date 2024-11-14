@@ -12,5 +12,7 @@ public class DetailedEntryPanel extends JPanel {
         }
 
         this.add(new JLabel(repo.getUser() + " " + repo.getTitle()));
+        revalidate();
+        repaint();
     }
 }
