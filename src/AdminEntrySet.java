@@ -38,8 +38,14 @@ public class AdminEntrySet extends EntrySet {
         entries.remove(githubLink);
 
         //Overwrite the original file to correctly delete it
-        fileWriter.write(String.join("\n", entries));
-        fileWriter.write("\n");
+        entries.forEach(entry -> {
+			try {
+				fileWriter.write(entry + "\n");
+			} catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+		});
+
         fileWriter.close();
         sc.close();
 
