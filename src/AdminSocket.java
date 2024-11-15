@@ -4,11 +4,21 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class AdminSocket {
-	private final int numClients = 20;
+	private final int numClients = 1;
 	private final int PORT = 8080;
 	private final String PATH = "src/EntryData.txt";
 	ServerSocket serverSocket;
 	private Socket[] clientSockets;
+
+	public static void main(String[] args) {
+		AdminSocket adminSocket = new AdminSocket();
+		try {
+			adminSocket.sendFile();
+			adminSocket.closeSockets();
+		} catch (IOException e) {
+			System.out.println("Could not send file to client");
+		}
+	}
 
 	public AdminSocket() {
 		try {
