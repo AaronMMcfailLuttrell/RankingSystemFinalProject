@@ -20,11 +20,20 @@ public class ClientHandler implements Runnable {
 		try {
 			// Send the file to the client
 			sendFile();
-			// And close client socket
-			clientSocket.close();
+
+
+
 		} catch (IOException e) {
 			// If an error occurs, print the error message
 			System.out.println("Error handling client: " + e.getMessage());
+		}
+
+		// Close the client socket
+		try {
+			clientSocket.close();
+		} catch (IOException e) {
+			// If an error occurs, print the error message
+			System.out.println("Error closing client socket: " + e.getMessage());
 		}
 	}
 

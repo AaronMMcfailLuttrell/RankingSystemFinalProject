@@ -8,13 +8,23 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) throws IOException {
         MainFrame mainFrame = new MainFrame();
+        mainFrame.setLayout(new BorderLayout());
+
+        Panel toolBar = new Panel();
+        mainFrame.add(toolBar, BorderLayout.NORTH);
+
+        Panel centerPanel = new Panel();
+        centerPanel.setLayout(new GridLayout(1, 2));
+        mainFrame.add(centerPanel, BorderLayout.CENTER);
+
         UserEntriesPanel userEntriesPanel = new UserEntriesPanel();
-        mainFrame.add(userEntriesPanel);
         DetailedEntryPanel detailedEntryPanel = new DetailedEntryPanel();
-        mainFrame.add(detailedEntryPanel);
-        userEntriesPanel.setVisible(true);
-        userEntriesPanel.repaint();
-        userEntriesPanel.revalidate();
+
+        centerPanel.add(userEntriesPanel);
+        centerPanel.add(detailedEntryPanel);
+
+        centerPanel.repaint();
+        centerPanel.revalidate();
 
     }
 
