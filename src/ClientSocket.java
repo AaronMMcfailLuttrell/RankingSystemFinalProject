@@ -1,14 +1,12 @@
 // Imports
-import java.io.BufferedOutputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.Socket;
 
 // Class to create a client socket
 public class ClientSocket {
 	// Variables
 	Socket clientSocket;
+	String host;
 	int bytesRead;
 
 	public static void main(String[] args) {
@@ -19,6 +17,10 @@ public class ClientSocket {
 	// Create the client socket using a host's ip
 	// For this project this will be the teachers ip
 	public ClientSocket(String host) {
+		this.host = host;
+	}
+
+	public void connectSocket() {
 		// Create the client socket
 		int maxRetries = 5;
 		int attempt = 0;
@@ -40,7 +42,6 @@ public class ClientSocket {
 				bos.write(fileContent, 0, bytesRead);
 				// Close the streams and the socket
 				bos.close();
-				clientSocket.close();
 				connected = true;
 			} catch (IOException e) {
 				// If the connection fails, try again
@@ -52,5 +53,29 @@ public class ClientSocket {
 				}
 			}
 		}
+	}
+
+	public void sendVote(String link) {
+		// Send a vote to the server
+		try {
+			OutputStream os = clientSocket.getOutputStream();
+			byte[] voteLink = link.getBytes();
+			os.write(voteLink);
+		} catch (IOException e) {
+			System.out.println("Error sending vote: " + e.getMessage());
+		}
+	}
+
+	// Method to close the client socket
+	public void closeSocket() {
+		try {
+			clientSocket.close();
+		} catch (IOException e) {
+			System.out.println("Error closing client socket: " + e.getMessage());
+		}
+	}
+
+	public void setHost(String host) {
+		this.host = host;
 	}
 }

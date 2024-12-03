@@ -21,7 +21,17 @@ public class ClientHandler implements Runnable {
 			// Send the file to the client
 			sendFile();
 
+			while (clientSocket.isConnected()) {
+				// Deal with the client sending votes
+				InputStream is = clientSocket.getInputStream();
+				byte[] voteContent = new byte[256];
+				is.read(voteContent, 0, voteContent.length);
+				String vote = new String(voteContent);
 
+				// print
+				if (!vote.isEmpty())
+					System.out.println("Vote: " + vote);
+			}
 
 		} catch (IOException e) {
 			// If an error occurs, print the error message

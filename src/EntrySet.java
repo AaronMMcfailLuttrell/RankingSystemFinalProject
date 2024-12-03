@@ -15,6 +15,8 @@ public class EntrySet extends JPanel {
     JButton runButton;
     JButton detailsButton;
 
+    ClientSocket userSocket;
+
     public EntrySet() {
         setPreferredSize(new Dimension(Constants.ENTRY_SET_PANEL_WIDTH, Constants.ENTRY_SET_PANEL_HEIGHT));
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
@@ -32,6 +34,25 @@ public class EntrySet extends JPanel {
     }
 
     public EntrySet(String githubLink) {
+        setPreferredSize(new Dimension(Constants.ENTRY_SET_PANEL_WIDTH, Constants.ENTRY_SET_PANEL_HEIGHT));
+        setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        setLayout(null);
+
+        setTextInstance(githubLink);
+        add(TextInstance);
+        setVoteButton();
+        add(voteButton);
+        setRunButton();
+        add(runButton);
+        setDetailsButton();
+        add(detailsButton);
+
+        setVisible(true);
+    }
+
+    public EntrySet(String githubLink, ClientSocket userSocket) {
+        this.userSocket = userSocket;
+
         setPreferredSize(new Dimension(Constants.ENTRY_SET_PANEL_WIDTH, Constants.ENTRY_SET_PANEL_HEIGHT));
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
         setLayout(null);
@@ -87,7 +108,10 @@ public class EntrySet extends JPanel {
     Socket to Admin to update vote count on admin end
      */
     private void lambdaFunctionVote(String githubLink) {
-        System.out.println(githubLink);
+        if (userSocket != null)
+            userSocket.sendVote(githubLink);
+        else
+            System.out.println("User not connected");
     }
 
     /*

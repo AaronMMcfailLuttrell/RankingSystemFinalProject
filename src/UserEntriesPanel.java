@@ -8,8 +8,11 @@ public class UserEntriesPanel extends JPanel {
     private JScrollPane scrollPane;
     private JPanel entriesListPanel;
     private ArrayList<String> Links;
+    private ClientSocket userSocket;
 
-    public UserEntriesPanel() throws IOException {
+    public UserEntriesPanel(ClientSocket userSocket) throws IOException {
+        this.userSocket = userSocket;
+
         setLayout(new BorderLayout());
         Links = new ArrayList<>();
         initializeData();
@@ -24,7 +27,7 @@ public class UserEntriesPanel extends JPanel {
 
         //Add all from ArrayList
         for (String iterator : Links) {
-            addEntry(new EntrySet(iterator));
+            addEntry(new EntrySet(iterator, userSocket));
         }
 
         // Add scrollPane to the main panel
