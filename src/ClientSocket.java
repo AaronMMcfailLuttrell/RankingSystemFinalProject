@@ -1,5 +1,6 @@
 // Imports
 import java.io.*;
+import java.net.InetSocketAddress;
 import java.net.Socket;
 
 // Class to create a client socket
@@ -30,18 +31,18 @@ public class ClientSocket {
 		while (attempt < maxRetries && !connected) {
 			try {
 				// Connect to the server
-				clientSocket = new Socket(host, 8080);
+				clientSocket = new Socket();
+				clientSocket.connect(new InetSocketAddress(host, 8080), 5000);
 				// Get the input stream from the server
 				InputStream is = clientSocket.getInputStream();
 				byte[] fileContent = new byte[1024];
 				//This file will probably be called EntryData.txt at the end but for now it is ClientData.txt since we need differentiating names
 				FileOutputStream fos = new FileOutputStream("src/ClientData.txt");
-				BufferedOutputStream bos = new BufferedOutputStream(fos);
 				bytesRead = is.read(fileContent, 0, fileContent.length);
 				// Write the file from the server
-				bos.write(fileContent, 0, bytesRead);
-				// Close the streams and the socket
-				bos.close();
+				fos.write(fileContent, 0, bytesRead);
+				// Close the streams
+				fos.close();
 				connected = true;
 			} catch (IOException e) {
 				// If the connection fails, try again

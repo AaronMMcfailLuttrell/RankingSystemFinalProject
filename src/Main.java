@@ -21,15 +21,10 @@ public class Main {
         JButton connectButton = new JButton("Connect");
         connectButton.addActionListener(e -> {
             clientSocket.setHost(ipField.getText());
-            clientSocket.connectSocket();
-		});
+            new Thread(clientSocket::connectSocket).start();
+        });
 
-        //close socket at end of program
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            if (clientSocket != null) {
-                clientSocket.closeSocket();
-            }
-        }));
+        mainFrame.setUserSocket(clientSocket);
 
         toolBar.add(ipField);
         toolBar.add(connectButton);
@@ -47,6 +42,5 @@ public class Main {
         centerPanel.repaint();
         centerPanel.revalidate();
     }
-
 }
 

@@ -4,6 +4,7 @@ import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 public class AdminSide {
     static JPanel entryPanel;
@@ -13,19 +14,25 @@ public class AdminSide {
     public static void main(String[] args) throws IOException {
         MainFrame mainFrame = new MainFrame();
         entryPanel = new JPanel();
-        entryPanel.setLayout(new GridLayout(2,0));
+        entryPanel.setLayout(new BorderLayout());
         entryPanel.setVisible(true);
-        mainFrame.add(entryPanel);
 
         userEntriesPanel = new AdminUserEntriesPanel();
         entryPanel.add(userEntriesPanel);
 
         mainFrame.setLayout(new BorderLayout());
 
+        Panel toolBar = getPanel();
+
+        mainFrame.add(toolBar, BorderLayout.NORTH);
         mainFrame.add(entryPanel, BorderLayout.CENTER);
 
+        mainFrame.revalidate();
+        mainFrame.repaint();
+    }
+
+    private static Panel getPanel() throws UnknownHostException {
         Panel toolBar = new Panel();
-        mainFrame.add(toolBar, BorderLayout.NORTH);
 
         JLabel ipField = new JLabel("IP Address :: " + InetAddress.getLocalHost().getHostAddress());
         toolBar.add(ipField);
@@ -41,12 +48,6 @@ public class AdminSide {
             AdminAddEntry adminAddEntry = new AdminAddEntry(userEntriesPanel);
         });
         toolBar.add(addEntryButton);
-
-        mainFrame.add(entryPanel);
-        DetailedEntryPanel detailedEntryPanel = new DetailedEntryPanel();
-        mainFrame.add(detailedEntryPanel);
-
-        mainFrame.revalidate();
-        mainFrame.repaint();
+        return toolBar;
     }
 }

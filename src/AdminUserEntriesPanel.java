@@ -22,7 +22,7 @@ public class AdminUserEntriesPanel extends JPanel {
         scrollPane = new JScrollPane(entriesListPanel);
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
-        //Add all from ArrayList
+        //Add from ArrayList
         for (String iterator : Links) {
             addEntryAdmin(new AdminEntrySet(iterator, this));
         }
