@@ -108,6 +108,7 @@ public class EntrySet extends JPanel {
     Socket to Admin to update vote count on admin end
      */
     private void lambdaFunctionVote(String githubLink) {
+        //if not Null send vote
         if (userSocket != null)
             userSocket.sendVote(githubLink);
         else
