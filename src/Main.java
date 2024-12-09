@@ -39,8 +39,19 @@ public class Main {
         centerPanel.add(userEntriesPanel);
         centerPanel.add(detailedEntryPanel);
 
-        centerPanel.repaint();
-        centerPanel.revalidate();
+        while (true) {
+            userEntriesPanel.initializeData();
+            userEntriesPanel.refreshPanel();
+            centerPanel.repaint();
+            centerPanel.revalidate();
+
+            try {
+                System.out.println("Refreshing");
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
 

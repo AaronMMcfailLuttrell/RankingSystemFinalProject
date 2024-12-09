@@ -41,7 +41,16 @@ public class UserEntriesPanel extends JPanel {
         entriesListPanel.repaint();
     }
 
-    private void initializeData() throws IOException {
+    public void refreshPanel() {
+        entriesListPanel.removeAll();
+        //Add all from ArrayList
+        for (String iterator : Links) {
+            addEntry(new EntrySet(iterator, userSocket));
+        }
+    }
+
+    public void initializeData() throws IOException {
+        Links.clear();
         File placeholder = new File(Constants.FilePath);
         placeholder.createNewFile();
         Scanner sc = new Scanner(new File(Constants.FilePath));

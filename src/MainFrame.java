@@ -3,6 +3,7 @@ import java.awt.*;
 
 public class MainFrame extends JFrame {
     ClientSocket userSocket;
+    AdminSocket serverSocket;
 
     public MainFrame() {
         setTitle("Ranking System");
@@ -18,8 +19,17 @@ public class MainFrame extends JFrame {
         this.userSocket = userSocket;
     }
 
+    public void setServerSocket(AdminSocket serverSocket) {
+        this.serverSocket = serverSocket;
+    }
+
     public void windowClosing() {
-        userSocket.closeSocket();
+        if (serverSocket != null)
+            serverSocket.stopServer();
+
+        if (userSocket != null)
+            userSocket.closeSocket();
+
         System.exit(0);
     }
 }

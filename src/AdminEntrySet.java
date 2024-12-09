@@ -22,6 +22,10 @@ public class AdminEntrySet extends EntrySet {
         });
         deleteEntryButton.setVisible(true);
         add(deleteEntryButton);
+
+        JLabel voteCount = new JLabel("0");
+        voteCount.setVisible(true);
+        add(voteCount);
     }
 
     private void deleteButtonLambda(String githubLink, AdminUserEntriesPanel referencePanel) throws IOException {

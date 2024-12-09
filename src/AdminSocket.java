@@ -8,7 +8,7 @@ import java.util.concurrent.Executors;
 // Class to create the server socket
 public class AdminSocket {
 	// Variables
-	private final int PORT = 8080;
+	private final int PORT = 65535;
 	private final String PATH = "src/EntryData.txt";
 	private ServerSocket serverSocket;
 	private ExecutorService executorService;
@@ -45,6 +45,15 @@ public class AdminSocket {
 				// If an error occurs, print the error message
 				System.out.println("Error accepting client connection: " + e.getMessage());
 			}
+		}
+	}
+
+	public void stopServer() {
+		try {
+			serverSocket.close();
+			executorService.shutdown();
+		} catch (IOException e) {
+			System.out.println("Error closing server socket: " + e.getMessage());
 		}
 	}
 }

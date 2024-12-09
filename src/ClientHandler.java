@@ -7,6 +7,7 @@ public class ClientHandler implements Runnable {
 	// Variables
 	private final Socket clientSocket;
 	private final String filePath;
+	String prevVote;
 
 	// Constructor
 	public ClientHandler(Socket clientSocket, String filePath) {
@@ -29,8 +30,10 @@ public class ClientHandler implements Runnable {
 				String vote = new String(voteContent);
 
 				// print
-				if (!vote.isEmpty())
-					System.out.println("Vote: " + vote);
+				if (!vote.isEmpty() && !vote.trim().equals(prevVote)) {
+					System.out.println("Vote received: " + vote.trim());
+					prevVote = vote.trim();
+				}
 			}
 
 		} catch (IOException e) {
