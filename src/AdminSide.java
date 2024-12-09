@@ -42,7 +42,7 @@ public class AdminSide {
             AdminSocket serverSocket = new AdminSocket();
             new Thread(serverSocket::startServer).start();
 		});
-        
+
         toolBar.add(startServerButton);
 
         JButton addEntryButton = new JButton("Add Entry");
