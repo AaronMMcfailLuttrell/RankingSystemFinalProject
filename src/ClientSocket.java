@@ -9,7 +9,6 @@ public class ClientSocket {
 	Socket clientSocket;
 	String host;
 	int bytesRead;
-	int PORT = 65535;
 
 	public static void main(String[] args) {
 		//localhost for testing
@@ -33,12 +32,12 @@ public class ClientSocket {
 			try {
 				// Connect to the server
 				clientSocket = new Socket();
-				clientSocket.connect(new InetSocketAddress(host, PORT), 5000);
+				clientSocket.connect(new InetSocketAddress(host, 8080), 5000);
 				// Get the input stream from the server
 				InputStream is = clientSocket.getInputStream();
 				byte[] fileContent = new byte[1024];
 				//This file will probably be called EntryData.txt at the end but for now it is ClientData.txt since we need differentiating names
-				FileOutputStream fos = new FileOutputStream("src/EntryData.txt");
+				FileOutputStream fos = new FileOutputStream("src/ClientData.txt");
 				bytesRead = is.read(fileContent, 0, fileContent.length);
 				// Write the file from the server
 				fos.write(fileContent, 0, bytesRead);

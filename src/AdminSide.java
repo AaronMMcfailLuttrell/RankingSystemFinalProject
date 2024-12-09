@@ -10,7 +10,6 @@ public class AdminSide {
     static JPanel entryPanel;
     static JButton addEntryButton;
     private static AdminUserEntriesPanel userEntriesPanel;
-    private static AdminSocket serverSocket;
 
     public static void main(String[] args) throws IOException {
         MainFrame mainFrame = new MainFrame();
@@ -28,8 +27,6 @@ public class AdminSide {
         mainFrame.add(toolBar, BorderLayout.NORTH);
         mainFrame.add(entryPanel, BorderLayout.CENTER);
 
-        mainFrame.setServerSocket(serverSocket);
-
         mainFrame.revalidate();
         mainFrame.repaint();
     }
@@ -42,7 +39,7 @@ public class AdminSide {
 
         JButton startServerButton = new JButton("Start Server");
         startServerButton.addActionListener(e -> {
-            serverSocket = new AdminSocket();
+            AdminSocket serverSocket = new AdminSocket();
 		});
         toolBar.add(startServerButton);
 
