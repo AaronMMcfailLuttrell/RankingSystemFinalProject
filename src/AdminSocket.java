@@ -8,7 +8,7 @@ import java.util.concurrent.Executors;
 // Class to create the server socket
 public class AdminSocket {
 	// Variables
-	private final int PORT = 8080;
+	private final int PORT = 65535;
 	private final String PATH = "src/EntryData.txt";
 	private ServerSocket serverSocket;
 	private ExecutorService executorService;

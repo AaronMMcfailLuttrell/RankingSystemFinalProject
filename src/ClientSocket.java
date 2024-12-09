@@ -32,7 +32,7 @@ public class ClientSocket {
 			try {
 				// Connect to the server
 				clientSocket = new Socket();
-				clientSocket.connect(new InetSocketAddress(host, 8080), 5000);
+				clientSocket.connect(new InetSocketAddress(host, 65535), 5000);
 				// Get the input stream from the server
 				InputStream is = clientSocket.getInputStream();
 				byte[] fileContent = new byte[1024];
