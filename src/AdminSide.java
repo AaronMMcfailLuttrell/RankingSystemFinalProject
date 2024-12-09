@@ -40,6 +40,7 @@ public class AdminSide {
         JButton startServerButton = new JButton("Start Server");
         startServerButton.addActionListener(e -> {
             AdminSocket serverSocket = new AdminSocket();
+            serverSocket.startServer();
             System.out.println("Server Started");
 		});
         toolBar.add(startServerButton);
