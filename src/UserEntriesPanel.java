@@ -3,12 +3,14 @@ import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.function.Consumer;
 
 public class UserEntriesPanel extends JPanel implements EntriesPanel {
     private JScrollPane scrollPane;
     private JPanel entriesListPanel;
     private ArrayList<String> Links;
     private ClientSocket userSocket;
+    private Consumer<EntrySet> detailsListenerSetter;
 
     public UserEntriesPanel(ClientSocket userSocket) throws IOException {
         this.userSocket = userSocket;
@@ -39,7 +41,9 @@ public class UserEntriesPanel extends JPanel implements EntriesPanel {
         entriesListPanel.add(entry);
         entriesListPanel.revalidate();
         entriesListPanel.repaint();
-        //Call consumer here if implemented like that.
+        if (this.detailsListenerSetter != null) {
+            this.detailsListenerSetter.accept(entry);
+        }
     }
 
     public void refreshPanel() {
@@ -61,4 +65,8 @@ public class UserEntriesPanel extends JPanel implements EntriesPanel {
         sc.close();
     }
 
+    @Override
+    public void setDetailsListenerSetter(Consumer<EntrySet> consumer) {
+        this.detailsListenerSetter = consumer;
+    }
 }

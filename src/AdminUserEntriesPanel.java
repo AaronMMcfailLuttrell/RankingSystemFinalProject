@@ -3,11 +3,13 @@ import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.function.Consumer;
 
 public class AdminUserEntriesPanel extends JPanel implements EntriesPanel {
     private JScrollPane scrollPane;
     private JPanel entriesListPanel;
     private ArrayList<String> Links;
+    private Consumer<EntrySet> detailsListenerSetter;
 
     public AdminUserEntriesPanel() throws IOException {
         setLayout(new BorderLayout());
@@ -35,6 +37,9 @@ public class AdminUserEntriesPanel extends JPanel implements EntriesPanel {
         entriesListPanel.add(entry);
         entriesListPanel.revalidate();
         entriesListPanel.repaint();
+        if (this.detailsListenerSetter != null) {
+            this.detailsListenerSetter.accept(entry);
+        }
     }
 
     private void initializeData() throws IOException {
@@ -59,4 +64,8 @@ public class AdminUserEntriesPanel extends JPanel implements EntriesPanel {
 
     }
 
+    @Override
+    public void setDetailsListenerSetter(Consumer<EntrySet> consumer) {
+        this.detailsListenerSetter = consumer;
+    }
 }
