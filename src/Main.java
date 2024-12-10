@@ -36,6 +36,9 @@ public class Main {
         UserEntriesPanel userEntriesPanel = new UserEntriesPanel(clientSocket);
         DetailedEntryPanel detailedEntryPanel = new DetailedEntryPanel();
 
+        //set lambda like
+        //userEntriesPanel.(undecided name)(entry -> entry.setDetailsListener(detailedEntryPanel));
+
         centerPanel.add(userEntriesPanel);
         centerPanel.add(detailedEntryPanel);
 

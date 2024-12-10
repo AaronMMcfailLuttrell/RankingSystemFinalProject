@@ -15,7 +15,10 @@ public class EntrySet extends JPanel {
     JButton runButton;
     JButton detailsButton;
 
+    Repo repo;
+
     ClientSocket userSocket;
+    DetailsListener detailsListener;
 
     public EntrySet() {
         setPreferredSize(new Dimension(Constants.ENTRY_SET_PANEL_WIDTH, Constants.ENTRY_SET_PANEL_HEIGHT));
@@ -84,6 +87,10 @@ public class EntrySet extends JPanel {
         TextInstance.setSize(CONSTRUCTOR_TEXT_SIZE_X,CONSTRUCTOR_TEXT_SIZE_Y);
         TextInstance.setLocation(CONSTRUCTOR_TEXT_LOC_X,CONSTRUCTOR_TEXT_LOC_Y);
         TextInstance.setText(githubLink);
+        if (!githubLink.isBlank() && !githubLink.equals("Empty Set")) {
+            this.repo = new Repo(githubLink);
+        }
+
     }
 
     private void setRunButton() {
@@ -119,19 +126,23 @@ public class EntrySet extends JPanel {
     Run button lambda expression
      */
     private void lambdaFunctionRun(String githubLink) {
-        Repo repo = new Repo(githubLink);
-        repo.structureProgram();
+        if (this.repo != null) {
+            repo.structureProgram();
+        }
+
     }
 
     /*
     Details button lambda expression
      */
     private void lambdaFunctionDetails(String githubLink) {
-        //somehow I need to notify detailedEntryPanel that it needs to show some entries.
-        //may send an event to notify it?
-        //Repo repo = new Repo(githubLink);
+        if (this.repo != null) {
+            this.detailsListener.onDetailsClicked(repo);
+        }
+    }
 
-        System.out.println(githubLink);
+    public void setDetailsListener(DetailsListener detailsListener) {
+        this.detailsListener = detailsListener;
     }
 
 }

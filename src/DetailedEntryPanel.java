@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class DetailedEntryPanel extends JPanel {
+public class DetailedEntryPanel extends JPanel implements DetailsListener {
     public DetailedEntryPanel() {
         setBackground(Color.white);
     }
@@ -14,5 +14,10 @@ public class DetailedEntryPanel extends JPanel {
         this.add(new JLabel(repo.getUser() + " " + repo.getTitle()));
         revalidate();
         repaint();
+    }
+
+    @Override
+    public void onDetailsClicked(Repo repo) {
+        showDetails(repo);
     }
 }

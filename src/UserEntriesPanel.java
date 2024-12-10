@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class UserEntriesPanel extends JPanel {
+public class UserEntriesPanel extends JPanel implements EntriesPanel {
     private JScrollPane scrollPane;
     private JPanel entriesListPanel;
     private ArrayList<String> Links;
@@ -35,10 +35,11 @@ public class UserEntriesPanel extends JPanel {
     }
 
     // Method to add an entry panel to the entriesListPanel
-    public void addEntry(JPanel entry) {
+    public void addEntry(EntrySet entry) {
         entriesListPanel.add(entry);
         entriesListPanel.revalidate();
         entriesListPanel.repaint();
+        //Call consumer here if implemented like that.
     }
 
     public void refreshPanel() {

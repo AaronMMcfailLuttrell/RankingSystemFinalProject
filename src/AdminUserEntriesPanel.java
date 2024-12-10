@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class AdminUserEntriesPanel extends JPanel {
+public class AdminUserEntriesPanel extends JPanel implements EntriesPanel {
     private JScrollPane scrollPane;
     private JPanel entriesListPanel;
     private ArrayList<String> Links;
