@@ -1,10 +1,19 @@
 import javax.net.ssl.HttpsURLConnection;
+import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URI;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 public class Repo {
 	//instance variables
@@ -178,6 +187,52 @@ public class Repo {
 		compileRepo();
 		runRepo();
 	}
+
+	public DefaultMutableTreeNode walkDirectory() {
+		if (!this.downloaded) {
+			downloadRepo();
+		}
+
+		DefaultMutableTreeNode fileNames = new DefaultMutableTreeNode();
+		Deque<DefaultMutableTreeNode> dirStack = new ArrayDeque<DefaultMutableTreeNode>();
+
+		dirStack.push(fileNames);
+
+        try {
+			Files.walkFileTree(Path.of(repoPath), new SimpleFileVisitor<Path>() {
+				@Override
+				public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
+					// Create a new node for the current directory
+					DefaultMutableTreeNode dirNode = new DefaultMutableTreeNode(dir.getFileName());
+
+					dirStack.peek().add(dirNode);
+					dirStack.push(dirNode);
+
+					return FileVisitResult.CONTINUE;
+				}
+
+				@Override
+				public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+					// Create a node for the file
+					DefaultMutableTreeNode fileNode = new DefaultMutableTreeNode(file.getFileName().toString());
+
+					dirStack.peek().add(fileNode);
+					return FileVisitResult.CONTINUE;
+				}
+
+				@Override
+				public FileVisitResult postVisitDirectory(Path dir, IOException exc) {
+					dirStack.pop();
+					return FileVisitResult.CONTINUE;
+				}
+			});
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+		return fileNames;
+    }
 
 }
 
